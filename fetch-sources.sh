@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=8.1.1-ga
+VERSION=9.1.1-ga
 TARBALL_NAME=$VERSION.tar.gz
 URL=https://github.com/openjdk/jmc/archive/refs/tags/$TARBALL_NAME
 

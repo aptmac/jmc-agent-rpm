@@ -4,23 +4,13 @@
 %global patchlevel 1
 
 # Revision
-%global revnum 2
-# set to 1 for snapshots, 0 for release
-%global usesnapshot 0
-
-# SNAPSHOT version
-%global revhash 14d2f6ca7a404a71c8aa8676cfd301dcab647093
-%global revdate 20211026
+%global revnum 3
 
 # JMC release version tag containing the agent code
-%global jmc_version 8.1.1-ga
+%global jmc_version 9.1.1-ga
 %global tarball_name jmc-%{jmc_version}
 
-%if %{usesnapshot}
-  %global releasestr %{revnum}.%{revdate}%{revhash}
-%else
-  %global releasestr %{revnum}
-%endif
+%global releasestr %{revnum}
 
 Name:     jmc-agent
 Version:  %{major}.%{minor}.%{patchlevel}
@@ -32,7 +22,7 @@ Source0:  https://github.com/openjdk/jmc/archive/refs/tags/%{jmc_version}.tar.gz
 
 BuildArch:  noarch
 
-BuildRequires:  java-11-openjdk-devel
+BuildRequires:  java-21-openjdk-devel
 BuildRequires:  junit
 BuildRequires:  maven-local
 BuildRequires:  maven-shade-plugin
@@ -55,13 +45,13 @@ This package contains javadoc for %{summary}.
 %prep
 %setup -q -n %{tarball_name}/agent
 
-%patch0 -p1
+%patch 0 -p1
 
 cp ./license/* ./
 
-%pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-failsafe-plugin
 %pom_remove_plugin :nexus-staging-maven-plugin
+%pom_remove_plugin :spotless-maven-plugin
 
 %build
 %mvn_build
@@ -80,8 +70,11 @@ cp ./license/* ./
 %doc README.md
 
 %changelog
-* Thu Jan 06 2022 Alex Macdonald <almacdon@redhat.com> - 1.0.1-2
+* Thu Oct 30 2025 aptmac <aptmac@ibm.com> - 1.0.1-2
+- Update to use JMC 9.1.1-ga
+
+* Thu Jan 06 2022 aptmac <almacdon@redhat.com> - 1.0.1-2
 - Added build requires on jdk 11 and version requirement on objectweb-asm
 
-* Mon Dec 06 2021 Alex Macdonald <almacdon@redhat.com> - 1.0.1-1
+* Mon Dec 06 2021 aptmac <almacdon@redhat.com> - 1.0.1-1
 - Initial package

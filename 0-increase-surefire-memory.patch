@@ -1,13 +1,12 @@
 diff --git a/pom.xml b/pom.xml
-index 373e28c..88c5070 100644
+index 77ebd9f..9b56693 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -152,8 +152,7 @@
+@@ -172,7 +172,7 @@
  				<artifactId>maven-surefire-plugin</artifactId>
- 				<version>2.21.0</version>
+ 				<version>${maven.surefire.version}</version>
  				<configuration>
--					<argLine> --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
--						-XX:+FlightRecorder</argLine>
+-					<argLine>--add-opens java.base/jdk.internal.misc=ALL-UNNAMED -XX:+FlightRecorder</argLine>
 +					<argLine> --add-opens java.base/jdk.internal.misc=ALL-UNNAMED -XX:+FlightRecorder -Xmx1024m</argLine>
  					<excludes>
  						<exclude>TestDefineEventProbes.java</exclude>
